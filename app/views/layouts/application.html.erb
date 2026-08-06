@@ -24,7 +24,8 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-      <%= yield %>
+  <body data-controller="sidebar">
+    <%= render "shared/sidebar" %>
+    <%= yield %>
   </body>
 </html>

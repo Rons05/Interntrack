@@ -9,7 +9,10 @@ Rails.application.routes.draw do
 
   root "dashboard#index"
   
-  
+  get "profile", to: "profile#show"
+  get "journal", to: "journals#index"
+  get "logs", to: "logs#index"
+  get "requirements", to: "requirements#index"
   
   get "up" => "rails/health#show", as: :rails_health_check
 
