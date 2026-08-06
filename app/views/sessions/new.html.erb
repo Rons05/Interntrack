@@ -1,0 +1,40 @@
+<div class="min-h-screen bg-[#0F0E17]">
+  <nav class="bg-[#1A1825] px-6 py-4 flex justify-end border-b border-white/5">
+    <%= link_to "signup", class: "text-white flex items-center gap-2" do %>
+      <span style="filter: grayscale(100%) brightness(0) invert(1);">&#128100;</span> Register
+    <% end %>
+  </nav>
+
+  <div class="p-12">
+    <h1 class="text-4xl font-bold text-white mb-12" style="font-family: 'Press Start 2P', monospace;">Intern<span class="text-[#7C5CFC]">Track</span></h1>
+
+    <% if flash[:alert] %>
+      <div class="max-w-md ml-auto mb-4 bg-red-900/40 text-red-300 border border-red-500/30 p-3 rounded"><%= flash[:alert] %></div>
+    <% end %>
+
+    <div class="max-w-md ml-auto bg-[#1A1825] rounded-xl p-8">
+      <h2 class="text-2xl text-white mb-4 pb-4 border-b border-white/10">Login</h2>
+
+      <%= form_with url: login_path, method: :post, local: true do |f| %>
+        <div class="mb-4">
+          <%= label_tag :username, "Username", class: "block text-[#9CA3AF] text-sm mb-1" %>
+          <%= text_field_tag :username, nil, class: "w-full p-2 bg-[#0F0E17] border border-white/10 text-white rounded" %>
+        </div>
+
+        <div class="mb-4">
+          <%= label_tag :password, "Password", class: "block text-[#9CA3AF] text-sm mb-1" %>
+          <%= password_field_tag :password, nil, class: "w-full p-2 bg-[#0F0E17] border border-white/10 text-white rounded" %>
+        </div>
+
+        <div class="mb-6 flex items-center gap-2">
+          <%= check_box_tag :remember_me %>
+          <%= label_tag :remember_me, "Remember Me", class: "text-[#9CA3AF] text-sm" %>
+        </div>
+
+        <div class="flex justify-center">
+          <%= submit_tag "Login", class: "bg-[#7C5CFC] text-white px-8 py-2 rounded hover:opacity-90 cursor-pointer" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

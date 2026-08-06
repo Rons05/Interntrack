@@ -1,0 +1,50 @@
+<div class="min-h-screen bg-[#0F0E17]">
+  <nav class="bg-[#1A1825] px-6 py-4 flex justify-end border-b border-white/5">
+    <%= link_to "login", class: "text-white" do %>
+      Already have an account? Login
+    <% end %>
+  </nav>
+
+  <div class="p-12">
+    <h1 class="text-4xl font-bold text-white mb-12" style="font-family: 'Press Start 2P', monospace;">Intern<span class="text-[#7C5CFC]">Track</span></h1>
+    <div class="max-w-md ml-auto bg-[#1A1825] rounded-xl p-8">
+      <h2 class="text-2xl text-white mb-4 pb-4 border-b border-white/10">Register</h2>
+
+      <% if @user.errors.any? %>
+        <div class="mb-4 bg-red-900/40 text-red-300 border border-red-500/30 p-3 rounded text-sm">
+          <ul>
+            <% @user.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <%= form_with model: @user, url: signup_path, local: true do |f| %>
+        <div class="mb-4">
+          <%= f.label :email, class: "block text-[#9CA3AF] text-sm mb-1" %>
+          <%= f.email_field :email, class: "w-full p-2 bg-[#0F0E17] border border-white/10 text-white rounded" %>
+        </div>
+
+        <div class="mb-4">
+          <%= f.label :username, class: "block text-[#9CA3AF] text-sm mb-1" %>
+          <%= f.text_field :username, class: "w-full p-2 bg-[#0F0E17] border border-white/10 text-white rounded" %>
+        </div>
+
+        <div class="mb-4">
+          <%= f.label :password, class: "block text-[#9CA3AF] text-sm mb-1" %>
+          <%= f.password_field :password, class: "w-full p-2 bg-[#0F0E17] border border-white/10 text-white rounded" %>
+        </div>
+
+        <div class="mb-6">
+          <%= f.label :password_confirmation, "Confirm Password", class: "block text-[#9CA3AF] text-sm mb-1" %>
+          <%= f.password_field :password_confirmation, class: "w-full p-2 bg-[#0F0E17] border border-white/10 text-white rounded" %>
+        </div>
+
+        <div class="flex justify-center">
+          <%= f.submit "Register", class: "bg-[#7C5CFC] text-white px-8 py-2 rounded hover:opacity-90 cursor-pointer" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
