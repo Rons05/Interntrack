@@ -10,21 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_07_012624) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_07_032035) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
-
-  create_table "internships", force: :cascade do |t|
-    t.string "company_name"
-    t.datetime "created_at", null: false
-    t.date "date_applied"
-    t.text "notes"
-    t.string "role"
-    t.string "status"
-    t.datetime "updated_at", null: false
-    t.bigint "user_id", null: false
-    t.index ["user_id"], name: "index_internships_on_user_id"
-  end
 
   create_table "journals", force: :cascade do |t|
     t.text "content"
@@ -43,6 +31,5 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_07_012624) do
     t.string "username"
   end
 
-  add_foreign_key "internships", "users"
   add_foreign_key "journals", "users"
 end

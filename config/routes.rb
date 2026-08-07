@@ -11,7 +11,6 @@ Rails.application.routes.draw do
   get "logs", to: "logs#index", as: :logs
   get "requirements", to: "requirements#index", as: :requirements
 
-  resources :internships
 
   root "dashboard#index"
 
