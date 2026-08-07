@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get "dashboard/index"
   get "signup", to: "registrations#new"
   post "signup", to: "registrations#create"
 
@@ -7,19 +6,14 @@ Rails.application.routes.draw do
   post "login", to: "sessions#create"
   delete "logout", to: "sessions#destroy"
 
+  get "profile", to: "profile#show", as: :profile
+  get "journal", to: "journals#index", as: :journal
+  get "logs", to: "logs#index", as: :logs
+  get "requirements", to: "requirements#index", as: :requirements
+
+  resources :internships
+
   root "dashboard#index"
-  
-  get "profile", to: "profile#show"
-  get "journal", to: "journals#index"
-  get "logs", to: "logs#index"
-  get "requirements", to: "requirements#index"
-  
+
   get "up" => "rails/health#show", as: :rails_health_check
-
-  # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
-  # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
-  # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
-
-  # Defines the root path route ("/")
-  # root "posts#index"
 end
