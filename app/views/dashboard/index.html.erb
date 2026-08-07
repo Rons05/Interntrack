@@ -1,7 +1,7 @@
 <div class="min-h-screen bg-[#0F0E17]">
   <nav class="bg-[#1A1825] px-8 py-5 flex items-center justify-between border-b border-white/5">
     <div class="flex items-center gap-3">
-      <button class="text-[#7C5CFC] text-2xl leading-none flex items-center">&#9776;</button>
+      <button data-action="click->sidebar#toggle" class="text-[#7C5CFC] text-2xl leading-none flex items-center">&#9776;</button>
       <h1 class="text-white text-xl leading-none flex items-center" style="font-family: 'Press Start 2P', monospace;">Intern<span class="text-[#7C5CFC]">Track</span></h1>
     </div>
     <%= button_to "Logout", logout_path, method: :delete, class: "text-white bg-[#2A2740] px-4 py-2 rounded-lg hover:bg-[#3A3660]" %>
