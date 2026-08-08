@@ -25,7 +25,14 @@
   </head>
 
   <body data-controller="sidebar">
-    <%= render "shared/sidebar" %>
+    <body data-controller="sidebar">
+    <% if current_user %>
+      <%= render "shared/sidebar" %>
+      <nav class="bg-[#1A1825] px-8 py-5 flex items-center gap-3 border-b border-white/5">
+        <button data-action="click->sidebar#toggle" class="text-[#7C5CFC] text-2xl leading-none flex items-center">&#9776;</button>
+        <h1 class="text-white text-xl leading-none flex items-center" style="font-family: 'Press Start 2P', monospace;">Intern<span class="text-[#7C5CFC]">Track</span></h1>
+      </nav>
+    <% end %>
     <%= yield %>
   </body>
 </html>

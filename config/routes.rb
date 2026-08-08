@@ -7,10 +7,10 @@ Rails.application.routes.draw do
   delete "logout", to: "sessions#destroy"
 
   get "profile", to: "profile#show", as: :profile
-  get "journal", to: "journals#index", as: :journal
-  get "logs", to: "logs#index", as: :logs
-  get "requirements", to: "requirements#index", as: :requirements
-
+  resources :journals, path: "journal"
+  resources :logs
+  resources :requirements
+  patch "dashboard/hours", to: "dashboard#update_hours"
 
   root "dashboard#index"
 

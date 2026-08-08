@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date_worked: 2026-08-07
+  time_in: 2026-08-07 21:03:10
+  time_out: 2026-08-07 21:03:10
+  hours: 9.99
+  user: one
+
+two:
+  date_worked: 2026-08-07
+  time_in: 2026-08-07 21:03:10
+  time_out: 2026-08-07 21:03:10
+  hours: 9.99
+  user: two

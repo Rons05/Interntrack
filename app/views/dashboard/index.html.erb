@@ -1,26 +1,38 @@
 <div class="min-h-screen bg-[#0F0E17]">
-  <nav class="bg-[#1A1825] px-8 py-5 flex items-center justify-between border-b border-white/5">
-    <div class="flex items-center gap-3">
-      <button data-action="click->sidebar#toggle" class="text-[#7C5CFC] text-2xl leading-none flex items-center">&#9776;</button>
-      <h1 class="text-white text-xl leading-none flex items-center" style="font-family: 'Press Start 2P', monospace;">Intern<span class="text-[#7C5CFC]">Track</span></h1>
-    </div>
-    <%= button_to "Logout", logout_path, method: :delete, class: "text-white bg-[#2A2740] px-4 py-2 rounded-lg hover:bg-[#3A3660]" %>
-  </nav>
-
   <div class="px-10 py-10">
-    <h2 class="text-4xl font-black mb-8 text-white" style="font-family: 'Press Start 2P', monospace;">
-      HELLO <span class="text-[#7C5CFC]"><%= current_user.username.upcase %></span>!
-    </h2>
+    <div class="mb-8">
+      <h2 class="text-4xl font-black text-white" style="font-family: 'Press Start 2P', monospace;">
+        HELLO <span class="text-[#7C5CFC]"><%= current_user.username.upcase %></span>!
+      </h2>
+    </div>
 
-    <div class="bg-[#1A1825] rounded-xl p-6 mb-10 max-w-2xl border border-white/5">
-      <h3 class="text-2xl font-bold mb-3 text-white">Hour Progress</h3>
-      <p class="text-sm mb-2 text-[#9CA3AF]"><%= @hours_completed %> / <%= @hours_required %> hours</p>
-      <div class="w-full h-3 bg-[#2A2740] rounded-full overflow-hidden">
-        <div class="bg-[#7C5CFC] h-full rounded-full" style="width: <%= (@hours_completed.to_f / @hours_required * 100).round %>%"></div>
+    <div data-controller="modal">
+      <div class="bg-[#1A1825] rounded-xl p-6 mb-10 max-w-2xl border border-white/5">
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="text-2xl font-bold text-white">Hour Progress</h3>
+          <button data-action="click->modal#open" class="text-[#9CA3AF] hover:text-white text-xs bg-[#2A2740] px-3 py-1 rounded">Edit Target</button>
+        </div>
+        <p class="text-sm mb-2 text-[#9CA3AF]"><%= @hours_completed %> / <%= @hours_required %> hours</p>
+        <div class="w-full h-3 bg-[#2A2740] rounded-full overflow-hidden">
+          <div class="bg-[#7C5CFC] h-full rounded-full" style="width: <%= (@hours_completed.to_f / @hours_required * 100).round %>%"></div>
+        </div>
+        <div class="flex justify-between mt-2">
+          <p class="text-xs text-[#9CA3AF]">Remaining Hours : <%= @hours_required - @hours_completed %> hrs</p>
+          <p class="text-xs font-bold text-[#7C5CFC]"><%= (@hours_completed.to_f / @hours_required * 100).round %>%</p>
+        </div>
       </div>
-      <div class="flex justify-between mt-2">
-        <p class="text-xs text-[#9CA3AF]">Remaining Hours : <%= @hours_required - @hours_completed %> hrs</p>
-        <p class="text-xs font-bold text-[#7C5CFC]"><%= (@hours_completed.to_f / @hours_required * 100).round %>%</p>
+
+      <div data-modal-target="backdrop" class="hidden fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+        <div class="bg-[#1A1825] rounded-xl p-6 w-80 border border-white/10">
+          <h3 class="text-lg font-bold text-white mb-4">Set Target Hours</h3>
+          <%= form_with url: "/dashboard/hours", method: :patch, local: true do |f| %>
+            <%= f.number_field :total_hours_required, value: @hours_required, class: "w-full p-2 mb-4 bg-[#0F0E17] border border-white/10 text-white rounded" %>
+            <div class="flex gap-2">
+              <%= f.submit "Save", class: "bg-[#7C5CFC] text-white px-4 py-2 rounded hover:opacity-90 cursor-pointer flex-1" %>
+              <button type="button" data-action="click->modal#close" class="bg-[#2A2740] text-white px-4 py-2 rounded hover:bg-[#3A3660]">Cancel</button>
+            </div>
+          <% end %>
+        </div>
       </div>
     </div>
 
@@ -40,14 +52,38 @@
       </div>
 
       <div class="bg-[#1A1825] p-5 rounded-xl border border-white/5">
-        <h4 class="font-bold mb-3 text-white">Logs</h4>
-        <div class="bg-[#0F0E17] border border-white/10 rounded-lg h-64"></div>
-      </div>
-
-      <div class="bg-[#1A1825] p-5 rounded-xl border border-white/5">
-        <h4 class="font-bold mb-3 text-white">Requirements</h4>
-        <div class="bg-[#0F0E17] border border-white/10 rounded-lg h-64"></div>
-      </div>
-    </div>
+  <h4 class="font-bold mb-3 text-white">Logs</h4>
+  <div class="bg-[#0F0E17] border border-white/10 rounded-lg p-4 h-64 overflow-y-auto">
+    <ul class="text-sm space-y-2 text-[#E5E5EA]">
+      <% @recent_logs.each do |log| %>
+        <li class="flex justify-between">
+          <span><%= log.date_worked.strftime("%b %d") %></span>
+          <span class="text-[#7C5CFC] font-bold"><%= log.hours %> hrs</span>
+        </li>
+      <% end %>
+      <% if @recent_logs.empty? %>
+        <li class="list-none italic text-[#9CA3AF]">No logs yet</li>
+      <% end %>
+    </ul>
   </div>
 </div>
+      <div class="bg-[#1A1825] p-5 rounded-xl border border-white/5">
+  <h4 class="font-bold mb-3 text-white">Requirements</h4>
+  <div class="bg-[#0F0E17] border border-white/10 rounded-lg p-4 h-64 overflow-y-auto">
+    <ul class="text-sm space-y-2 text-[#E5E5EA]">
+      <% @requirements.each do |req| %>
+        <li class="flex justify-between items-center">
+          <span><%= req.name %></span>
+          <span class="text-xs px-2 py-0.5 rounded-full <%= req.status == "Uploaded" ? "bg-green-500/20 text-green-300" : "bg-yellow-500/20 text-yellow-300" %>">
+            <%= req.status %>
+          </span>
+        </li>
+      <% end %>
+      <% if @requirements.empty? %>
+        <li class="list-none italic text-[#9CA3AF]">No requirements yet</li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+    </div>
+  </div>
