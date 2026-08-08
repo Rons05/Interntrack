@@ -1,0 +1,12 @@
+[33m63a00fe[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m Add Logs and Requirements features, editable hour target with modal, wire dashboard to real data
+[33m3324fbe[m Remove Internship application tracker feature - refocus on OJT self-tracking (Journal, Logs, Requirements)
+[33m7d4682a[m Fix routes.rb after merge - restore internships resources and named routes
+[33m973155b[m Merge branch 'feature/internship-model'
+[33mbb54880[m[33m ([m[1;32mfeature/internship-model[m[33m)[m Restore sidebar controller from main
+[33m7c3a718[m Add internships helper
+[33m40da825[m Add Internship model, controller, and views
+[33md532891[m[33m ([m[1;32mfeature/sidebar-navigation[m[33m)[m Add interactive sidebar navigation with Profile, Journal, Logs, and Requirements pages
+[33m1c1e626[m Add Internship model and CRUD
+[33mc2491e3[m Merge remote README with local project
+[33me2c7e4b[m Initial commit: Rails app with PostgreSQL and Tailwind
+[33m4d3233b[m Initial commit

@@ -7,6 +7,9 @@ class DashboardController < ApplicationController
     @journals = current_user.journals.order(created_at: :desc)
     @recent_logs = current_user.logs.order(date_worked: :desc).limit(5)
     @requirements = current_user.requirements.order(created_at: :desc)
+    @journal_count = current_user.journals.count
+    @requirements_uploaded = current_user.requirements.where(status: "Uploaded").count
+    @requirements_total = current_user.requirements.count
   end
 
   def update_hours
