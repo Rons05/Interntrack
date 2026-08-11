@@ -10,10 +10,13 @@ class DashboardController < ApplicationController
     @journal_count = current_user.journals.count
     @requirements_uploaded = current_user.requirements.where(status: "Uploaded").count
     @requirements_total = current_user.requirements.count
+    @projects = current_user.projects.order(deadline: :asc)
+    @projects_completed = current_user.projects.where(completed: true).count
+    @projects_total = current_user.projects.count
   end
 
   def update_hours
     current_user.update(total_hours_required: params[:total_hours_required])
-    redirect_to root_path, notice: "Hours target updated."
+    redirect_to root_path, notice: "Settings updated."
   end
 end

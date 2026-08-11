@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  get "projects/index"
+  get "projects/new"
+  get "projects/create"
+  get "projects/update"
+  get "projects/destroy"
   get "signup", to: "registrations#new"
   post "signup", to: "registrations#create"
 
@@ -10,6 +15,7 @@ Rails.application.routes.draw do
   resources :journals, path: "journal"
   resources :logs
   resources :requirements
+  resources :projects
   patch "dashboard/hours", to: "dashboard#update_hours"
 
   root "dashboard#index"

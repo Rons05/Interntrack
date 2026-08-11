@@ -1,0 +1,41 @@
+<div class="min-h-screen bg-[#0F0E17]">
+  <div class="px-10 py-10">
+    <div class="flex items-center justify-between mb-8">
+      <h2 class="text-3xl font-bold text-white">My Projects</h2>
+      <%= link_to "+ New Project", new_project_path, class: "bg-[#7C5CFC] text-white px-5 py-2 rounded-lg hover:opacity-90" %>
+    </div>
+
+    <% if @projects.empty? %>
+      <div class="bg-[#1A1825] rounded-xl p-10 text-center text-[#9CA3AF]">
+        No projects yet — click "New Project" to add one.
+      </div>
+    <% else %>
+      <div class="grid gap-4">
+        <% @projects.each do |project| %>
+          <div class="bg-[#1A1825] rounded-xl p-5 flex items-center justify-between border border-white/5">
+            <div>
+              <h3 class="text-white font-bold <%= "line-through text-[#9CA3AF]" if project.completed %>"><%= project.name %></h3>
+              <p class="text-[#9CA3AF] text-xs mt-1">
+                <% if project.deadline %>
+                  Deadline: <%= project.deadline.strftime("%b %d, %Y") %>
+                  <% if !project.completed && project.deadline < Date.today %>
+                    <span class="text-red-400">(Overdue)</span>
+                  <% end %>
+                <% else %>
+                  No deadline set
+                <% end %>
+              </p>
+            </div>
+            <div class="flex items-center gap-4">
+              <span class="px-3 py-1 rounded-full text-xs font-semibold <%= project.completed ? "bg-green-500/20 text-green-300" : "bg-yellow-500/20 text-yellow-300" %>">
+                <%= project.completed ? "Completed" : "In Progress" %>
+              </span>
+              <%= button_to (project.completed ? "Mark Incomplete" : "Mark Complete"), project_path(project), method: :patch, class: "text-[#7C5CFC] hover:underline text-sm bg-transparent" %>
+              <%= button_to "Delete", project_path(project), method: :delete, class: "text-red-400 hover:text-red-300 text-sm bg-transparent", form: { data: { turbo_confirm: "Delete this project?" } } %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
